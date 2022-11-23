@@ -9,12 +9,10 @@ import (
 	//"github.com/michimani/gotwi/tweet/managetweet/types"
 )
 
-const userId = "1595276630196248576"
-
 func main() {
 	fmt.Println("Twitt Talk Bot v0.01")
 
-	//bearerToken := os.Getenv("BEARER_TOKEN")
+	userID := os.Getenv("USER_ID")
 	accessToken := os.Getenv("ACCESS_TOKEN")
 	accessSecret := os.Getenv("ACCESS_TOKEN_SECRET")
 
@@ -32,7 +30,7 @@ func main() {
 
 	//tweetId, err := tweet(client, os.Args[1])
 
-	mentionedTweet, err := getMentions(client, userId)
+	mentionedTweet, err := getMentions(client, userID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
