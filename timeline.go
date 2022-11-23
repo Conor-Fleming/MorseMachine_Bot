@@ -9,7 +9,7 @@ import (
 	"github.com/michimani/gotwi/tweet/timeline/types"
 )
 
-func getMentions(client *gotwi.Client, id string) (string, error) {
+func getMentions(client *gotwi.Client, userId string) (string, string, error) {
 	input := &types.ListMentionsInput{
 		ID:          userId,
 		MaxResults:  5,
@@ -17,17 +17,11 @@ func getMentions(client *gotwi.Client, id string) (string, error) {
 	}
 	res, err := timeline.ListMentions(context.Background(), client, input)
 	if err != nil {
-		return "", err
-	}
-	count := 0
-	result := ""
-	for _, v := range res.Data {
-		if count > 1 {
-			break
-		}
-		result = gotwi.StringValue(v.Text)
-		count++
+		return "", "", err
 	}
 
-	return result, nil
+	body := gotwi.StringValue(res.Data[0].Text)
+	tweetID := gotwi.StringValue(res.Data[0].ID)
+
+	return body, tweetID, nil
 }

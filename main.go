@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Twitt Talk Bot v0.01")
+	fmt.Println("Automated Andy Bot v0.01")
 
 	userID := os.Getenv("USER_ID")
 	accessToken := os.Getenv("ACCESS_TOKEN")
@@ -28,21 +28,22 @@ func main() {
 		os.Exit(1)
 	}
 
-	//tweetId, err := tweet(client, os.Args[1])
-
-	mentionedTweet, err := getMentions(client, userID)
+	//call to getMentions() retrieves the most recent tweet the bot has been mentioned in
+	// return values are the text of that tweet as well as the tweet id to enable replying
+	tweetBody, tweetID, err := getMentions(client, userID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
 	}
 
 	//call tweet func with message as response from synonyms api call
-	tweetId, err := tweet(client, sanitize(mentionedTweet))
+	tweetId, err := tweet(client, sanitize(tweetBody), tweetID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
 	}
 
+	//indicated success
 	fmt.Println("Tweet ID:", tweetId)
 }
 

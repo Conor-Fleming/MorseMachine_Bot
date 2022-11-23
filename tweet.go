@@ -10,10 +10,13 @@ import (
 	"github.com/michimani/gotwi/tweet/managetweet/types"
 )
 
-func tweet(client *gotwi.Client, s string) (string, error) {
-	repsondingMessage := fmt.Sprintf(`"%s" responding to your mention`, s)
+func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
+	repsondingMessage := fmt.Sprintf(`%s - responding to your mention`, s)
 	message := &types.CreateInput{
 		Text: gotwi.String(repsondingMessage),
+		Reply: &types.CreateInputReply{
+			InReplyToTweetID: tweetID,
+		},
 	}
 	res, err := managetweet.Create(context.Background(), client, message)
 	if err != nil {
