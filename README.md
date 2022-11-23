@@ -1,2 +1,2 @@
 # Auto Andy
-An experamental, personal twitter bot written in Go.
+An experimental, personal twitter bot written in Go.
