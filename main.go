@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/michimani/gotwi"
@@ -12,7 +13,7 @@ import (
 func main() {
 	fmt.Println("Automated Andy Bot v0.01")
 
-	userID := os.Getenv("USER_ID")
+	//userID := os.Getenv("USER_ID")
 	accessToken := os.Getenv("ACCESS_TOKEN")
 	accessSecret := os.Getenv("ACCESS_TOKEN_SECRET")
 
@@ -21,16 +22,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	client, err := newOAuth1Client(accessToken, accessSecret)
+	/*client, err := newOAuth1Client(accessToken, accessSecret)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		fmt.Println("test")
 		os.Exit(1)
-	}
+	}*/
 
 	//call to getMentions() retrieves the most recent tweet the bot has been mentioned in
 	// return values are the text of that tweet as well as the tweet id to enable replying
-	tweetBody, tweetID, err := getMentions(client, userID)
+	/*tweetBody, tweetID, err := getMentions(client, userID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
@@ -41,10 +42,15 @@ func main() {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
+	}*/
+	result, err := getWordDetails("convoluted")
+	if err != nil {
+		log.Println(err)
 	}
+	fmt.Println(result)
 
 	//indicated success
-	fmt.Println("Tweet ID:", replyId)
+	//fmt.Println("Tweet ID:", replyId)
 }
 
 func newOAuth1Client(accessToken, accessSecret string) (*gotwi.Client, error) {
