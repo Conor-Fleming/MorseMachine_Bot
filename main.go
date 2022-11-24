@@ -37,14 +37,14 @@ func main() {
 	}
 
 	//call tweet func with message as response from synonyms api call
-	tweetId, err := tweet(client, sanitize(tweetBody), tweetID)
+	replyId, err := tweet(client, sanitize(tweetBody), tweetID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
 	}
 
 	//indicated success
-	fmt.Println("Tweet ID:", tweetId)
+	fmt.Println("Tweet ID:", replyId)
 }
 
 func newOAuth1Client(accessToken, accessSecret string) (*gotwi.Client, error) {
