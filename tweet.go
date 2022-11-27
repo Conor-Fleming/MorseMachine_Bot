@@ -15,8 +15,8 @@ import (
 	"github.com/michimani/gotwi/tweet/managetweet/types"
 )
 
-type Word struct {
-	Result []struct {
+type Result struct {
+	Words []struct {
 		Term         string `json:"term"`
 		Definition   string `json:"definition"`
 		Example      string `json:"example"`
@@ -43,12 +43,11 @@ func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
 }
 
 func sanitize(tweet string) string {
+	//possibly look at a better string normalizer
 	return strings.ReplaceAll(tweet, "@AutomatedAndy", "")
-
-	//getWordDetails(tweet)
 }
 
-func getWordDetails(w string) (string, error) {
+func getWordDetails(w string) (Result, error) {
 	token := os.Getenv("API_TOKEN")
 	uid := os.Getenv("API_UID")
 
@@ -56,7 +55,7 @@ func getWordDetails(w string) (string, error) {
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println("error")
-		return "", err
+		return Result{}, err
 	}
 
 	responseData, err := ioutil.ReadAll(res.Body)
@@ -64,15 +63,12 @@ func getWordDetails(w string) (string, error) {
 		log.Fatal(err)
 	}
 
-	var word Word
-	err = json.Unmarshal(responseData, &word)
+	var result Result
+	err = json.Unmarshal(responseData, &result)
 	if err != nil {
 		fmt.Println("There was an error unMarshalling the data.")
-		return "", err
-	}
-	for _, v := range word.Result {
-		fmt.Println(v.Term, v.Definition)
+		return Result{}, err
 	}
 
-	return "", nil
+	return result, nil
 }
