@@ -15,18 +15,15 @@ import (
 	"github.com/michimani/gotwi/tweet/managetweet/types"
 )
 
-// syn api url: https://www.stands4.com/services/v2/syno.php
-// sample: https://www.stands4.com/services/v2/syno.php?uid=1001&tokenid=tk324324&word=consistent&format=xml
-type Result struct {
-	Word Word
-}
-
 type Word struct {
-	Term       string
-	Definition string
-	Speech     string
-	Synonyms   string
-	Antonyms   string
+	Result []struct {
+		Term         string `json:"term"`
+		Definition   string `json:"definition"`
+		Example      string `json:"example"`
+		Partofspeech string `json:"partofspeech"`
+		Synonyms     string `json:"synonyms"`
+		Antonyms     string `json:"antonyms"`
+	} `json:"result"`
 }
 
 func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
@@ -47,9 +44,11 @@ func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
 
 func sanitize(tweet string) string {
 	return strings.ReplaceAll(tweet, "@AutomatedAndy", "")
+
+	//getWordDetails(tweet)
 }
 
-func getWordDetails(w string) (Word, error) {
+func getWordDetails(w string) (string, error) {
 	token := os.Getenv("API_TOKEN")
 	uid := os.Getenv("API_UID")
 
@@ -57,7 +56,7 @@ func getWordDetails(w string) (Word, error) {
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println("error")
-		return Word{}, err
+		return "", err
 	}
 
 	responseData, err := ioutil.ReadAll(res.Body)
@@ -66,7 +65,14 @@ func getWordDetails(w string) (Word, error) {
 	}
 
 	var word Word
-	json.Unmarshal(responseData, &word)
+	err = json.Unmarshal(responseData, &word)
+	if err != nil {
+		fmt.Println("There was an error unMarshalling the data.")
+		return "", err
+	}
+	for _, v := range word.Result {
+		fmt.Println(v.Term, v.Definition)
+	}
 
-	return word, nil
+	return "", nil
 }

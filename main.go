@@ -6,8 +6,6 @@ import (
 	"os"
 
 	"github.com/michimani/gotwi"
-	//"github.com/michimani/gotwi/tweet/managetweet"
-	//"github.com/michimani/gotwi/tweet/managetweet/types"
 )
 
 func main() {
@@ -16,6 +14,7 @@ func main() {
 	//userID := os.Getenv("USER_ID")
 	accessToken := os.Getenv("ACCESS_TOKEN")
 	accessSecret := os.Getenv("ACCESS_TOKEN_SECRET")
+	//userID := os.Getenv("USER_ID")
 
 	if accessToken == "" || accessSecret == "" {
 		fmt.Fprintln(os.Stderr, "Please set the ACCESS_TOKEN and ACCESS_SECRET environment variables.")
@@ -35,19 +34,18 @@ func main() {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
-	}
+	}*/
 
 	//call tweet func with message as response from synonyms api call
-	replyId, err := tweet(client, sanitize(tweetBody), tweetID)
+	/*replyId, err := tweet(client, sanitize(tweetBody), tweetID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
 	}*/
-	result, err := getWordDetails("convoluted")
+	_, err := getWordDetails("convoluted")
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(result)
 
 	//indicated success
 	//fmt.Println("Tweet ID:", replyId)
