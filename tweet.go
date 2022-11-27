@@ -27,9 +27,8 @@ type Result struct {
 }
 
 func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
-	repsondingMessage := fmt.Sprintf(`%s - responding to your mention`, s)
 	message := &types.CreateInput{
-		Text: gotwi.String(repsondingMessage),
+		Text: gotwi.String(s),
 		Reply: &types.CreateInputReply{
 			InReplyToTweetID: tweetID,
 		},
@@ -44,7 +43,10 @@ func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
 
 func sanitize(tweet string) string {
 	//possibly look at a better string normalizer
-	return strings.ReplaceAll(tweet, "@AutomatedAndy", "")
+	tweet = strings.ReplaceAll(tweet, "@AutomatedAndy", "")
+	tweet = strings.ReplaceAll(tweet, " ", "")
+	tweet = strings.ToLower(tweet)
+	return tweet
 }
 
 func getWordDetails(w string) (Result, error) {

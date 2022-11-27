@@ -40,8 +40,9 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
+
 	for _, v := range payload.Words {
-		formattedTweet := fmt.Sprintf("Word: %s\n\tDefinition: %s\n\tPart of Speech: %s\n\tSynonyms: %s\n\tAntonyms: %s\n\tExample: %s\n\n", v.Term, v.Definition, v.Partofspeech, v.Synonyms, v.Antonyms, v.Example)
+		formattedTweet := fmt.Sprintf("Word: %s\n\tDefinition: %s\n\tPart of Speech: %s\n\tSynonyms: %s\n\n", v.Term, v.Definition, v.Partofspeech, v.Synonyms)
 		replyId, err := tweet(client, formattedTweet, tweetID)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -50,6 +51,7 @@ func main() {
 		//indicates success
 		fmt.Println("Tweet ID:", replyId)
 	}
+
 }
 
 func newOAuth1Client(accessToken, accessSecret string) (*gotwi.Client, error) {
