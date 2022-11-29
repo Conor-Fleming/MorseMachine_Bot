@@ -1,4 +1,6 @@
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
+github.com/fallenstedt/twitter-stream v0.4.2 h1:6FOs9OM0BWuPlR7NMlUsw8VJ9bcEr+RqGxIPAS524sA=
+github.com/fallenstedt/twitter-stream v0.4.2/go.mod h1:rI9+ApaAA61jczjpin3vlREA9ONK4P4H4GVUNEXyoq0=
 github.com/michimani/gotwi v0.13.0 h1:zVVkibHLpP6Q3pg1/3rzuVcb+95p4TZchViW/ZE53/4=
 github.com/michimani/gotwi v0.13.0/go.mod h1:2W7Xp7vgg7ZZFdwXYHwbr9gUCMaZc+ql+T8RpccbeQ4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

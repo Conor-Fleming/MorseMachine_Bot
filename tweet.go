@@ -42,7 +42,7 @@ func tweet(client *gotwi.Client, s string, tweetID string) (string, error) {
 }
 
 func sanitize(tweet string) string {
-	//possibly look at a better string normalizer
+	//cleaning and normalizing word to use
 	tweet = strings.ReplaceAll(tweet, "@AutomatedAndy", "")
 	tweet = strings.ReplaceAll(tweet, " ", "")
 	tweet = strings.ToLower(tweet)
