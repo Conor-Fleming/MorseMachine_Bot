@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -13,7 +14,7 @@ func main() {
 
 	accessToken := os.Getenv("ACCESS_TOKEN")
 	accessSecret := os.Getenv("ACCESS_TOKEN_SECRET")
-	//userID := os.Getenv("USER_ID")
+	userID := os.Getenv("USER_ID")
 
 	if accessToken == "" || accessSecret == "" {
 		fmt.Fprintln(os.Stderr, "Please set the ACCESS_TOKEN and ACCESS_SECRET environment variables.")
@@ -32,31 +33,31 @@ func main() {
 	//call to getMentions() retrieves the most recent tweet the bot has been mentioned in
 	// return values are the text of that tweet as well as the tweet id to enable replying
 
-	/*tweetBody, tweetID, err := getMentions(client, userID)
+	//tweetBody, tweetID, err := getMentions(client, userID)
+	//use filtered stream to get this info and then send tweets
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
 	}
 
-
 	//call tweet func with message as response from synonyms api call
-	//payload, err := getWordDetails(sanitize(tweetBody))
+	payload, err := getWordDetails(sanitize(tweetBody))
 	if err != nil {
 		log.Println(err)
 	}
 
-	/*for _, v := range payload.Words {
+	for _, v := range payload.Words {
 		formattedTweet := fmt.Sprintf("Word: %s\n\tDefinition: %s\n\tPart of Speech: %s\n\tSynonyms: %s\n\n", v.Term, v.Definition, v.Partofspeech, v.Synonyms)
 		fmt.Println(formattedTweet)
-		/*replyId, err := tweet(client, formattedTweet, tweetID)
+		replyId, err := tweet(client, formattedTweet, tweetID)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(2)
 		}
 		//indicates success
-		//fmt.Println("Tweet ID:", replyId)
-	}*/
+		fmt.Println("Tweet ID:", replyId)
+	}
 
 }
 
