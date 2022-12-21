@@ -11,7 +11,7 @@ For example:
 >
 >***************************
 >
-> To be translated: "one final test"
+> To be translated: "SOS"
 >
 > Result:
 > `...---...`
