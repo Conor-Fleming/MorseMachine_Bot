@@ -5,9 +5,11 @@ An experimental, personal, twitter bot written in Go.
 To use this bot simply send a tweet to the handle `@TheMorseMachine` on twitter
 
 It will take the contents of your tweet and reply back to you with that tweet translated to Morse Code.
-For examples:
+For example:
 
 > @TheMorseMachine SOS
+>
+>***************************
 >
 > To be translated: "one final test"
 >
