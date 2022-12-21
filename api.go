@@ -23,7 +23,7 @@ type Result struct {
 
 func sanitize(tweet string) string {
 	//cleaning and normalizing word to use
-	tweet = strings.ReplaceAll(tweet, "@AutomatedAndy", "")
+	tweet = strings.ReplaceAll(tweet, "@TheMorseMachine ", "")
 	tweet = strings.ToLower(tweet)
 	return tweet
 }
@@ -54,8 +54,6 @@ func getTranslation(payload string) (string, error) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(responseData))
-
 	var result Result
 	err = json.Unmarshal(responseData, &result)
 	if err != nil {
@@ -70,7 +68,5 @@ func getTranslation(payload string) (string, error) {
 }
 
 func formatTweet(data Result) string {
-	fmt.Println(string(data.Contents.Text))
-
-	return ""
+	return fmt.Sprintf("To be translated: \"%s\"\n\nResult:\n%s", data.Contents.Text, data.Contents.Translated)
 }

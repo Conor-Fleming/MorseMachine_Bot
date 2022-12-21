@@ -5,12 +5,15 @@ import (
 )
 
 func main() {
-	fmt.Println("Automated Andy Bot v0.01")
+	fmt.Println("The Morse Machine Bot v0.01")
 
-	//AddRules()
+	AddRules()
 	listRules()
 
 	//initiate stream will handle gathering tweets that satisfy rules, authentications,
 	//and sending of reply tweets
 	initiateStream()
+
+	deleteRules()
+
 }

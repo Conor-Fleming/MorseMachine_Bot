@@ -49,7 +49,6 @@ func initiateStream() {
 	fmt.Println("Authenticating...")
 	accessToken := os.Getenv("ACCESS_TOKEN")
 	accessSecret := os.Getenv("ACCESS_TOKEN_SECRET")
-	//userID := os.Getenv("USER_ID")
 
 	if accessToken == "" || accessSecret == "" {
 		fmt.Fprintln(os.Stderr, "Please set the ACCESS_TOKEN and ACCESS_SECRET environment variables.")
@@ -59,7 +58,6 @@ func initiateStream() {
 	client, err := newOAuth1Client(accessToken, accessSecret)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
-		fmt.Println("test")
 		os.Exit(1)
 	}
 	fmt.Println("Stream starting...", client)
@@ -76,27 +74,28 @@ func initiateStream() {
 		}
 
 		tweetBody := tweet.Data.(StreamDataExample).Data.Text
-		//tweetID := tweet.Data.(StreamDataExample).Data.ID
+		tweetID := tweet.Data.(StreamDataExample).Data.ID
 		translation, err := getTranslation(tweetBody)
 		if err != nil {
 			fmt.Println("err")
 		}
 		fmt.Println(translation)
 
-		/*replyId, err := SendTweet(client, translation, tweetID)
+		replyId, err := SendTweet(client, translation, tweetID)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
-			os.Exit(2)
-		}*/
+			api.StopStream()
+			continue
+		}
 		//indicates success
-		//fmt.Println("Tweet ID:", replyId)
+		fmt.Println("Tweet ID:", replyId)
 	}
-	fmt.Println("Stopped Strem")
+	fmt.Println("Stopped Stream")
 }
 
 func getTweets() stream.IStream {
 	//Authentication
-	tok, err := twitterstream.NewTokenGenerator().SetApiKeyAndSecret(os.Getenv("API_KEY"), os.Getenv("API_SECRET")).RequestBearerToken()
+	tok, err := twitterstream.NewTokenGenerator().SetApiKeyAndSecret(os.Getenv("GOTWI_API_KEY"), os.Getenv("GOTWI_API_KEY_SECRET")).RequestBearerToken()
 	if err != nil {
 		panic(err)
 	}
